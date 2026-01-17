@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dark Premium Cards - Payment</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body { background: linear-gradient(135deg, #000000, #0a0015, #1a0033); color: #e0e0ff; margin: 0; padding: 20px; min-height: 100vh; display: flex; align-items: center; justify-content: center; font-family: 'Segoe UI', sans-serif; }
+    #qrContainer { background: rgba(10, 10, 20, 0.8); backdrop-filter: blur(15px); border: 1px solid #222244; border-radius: 20px; padding: 40px; max-width: 420px; text-align: center; box-shadow: 0 0 40px rgba(255, 69, 0, 0.4); }
+    h3 { color: #00ffff; text-shadow: 0 0 15px #00ffff; font-size: 2.2em; margin-bottom: 20px; }
+    #qrcode { margin: 30px auto; background: white; padding: 15px; border-radius: 15px; display: inline-block; box-shadow: 0 0 20px rgba(0,255,157,0.4); }
+    .pay-btn { background: linear-gradient(45deg, #ff4500, #ff8c00); color: white; padding: 18px; border-radius: 50px; text-decoration: none; font-size: 1.4em; display: block; margin-top: 30px; box-shadow: 0 0 25px rgba(255,69,0,0.6); transition: all 0.3s; }
+    .pay-btn:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(255,69,0,0.9); }
+    p { color: #bbb; font-size: 1em; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div id="qrContainer">
+    <h3>Pay ₹<span id="amount"></span></h3>
+    <p id="paymentInfo" style="font-size:1.2em; color:#ddd; margin:20px 0;"></p>
+    <div id="qrcode"></div>
+    
+    <a id="upiLink" href="#" class="pay-btn">Pay Now (Open UPI App)</a>
+    
+    <p>Scan QR or click button – payment will start directly!</p>
+  </div>
+
+  <script>
+    if (!localStorage.getItem('loggedInUser')) window.location.href = 'index.html';
+
+    const params = new URLSearchParams(window.location.search);
+    const amount = params.get('amount') || '500';
+    const cardName = params.get('name') || 'Card';
+
+    const upiID = "ahamsharma578@fam";
+    const payeeName = "Aryan Cards";
+    const note = `${cardName} - Premium Purchase`;
+
+    const upiLink = `upi://pay?pa=\( {upiID}&pn= \){payeeName}&am=\( {amount}&cu=INR&tn= \){note}`;
+
+    document.getElementById("amount").innerText = amount;
+    document.getElementById("paymentInfo").innerText = `UPI: ${upiID} | Note: ${note}`;
+    document.getElementById("upiLink").href = upiLink;
+
+    new QRCode(document.getElementById("qrcode"), {
+      text: upiLink,
+      width: 260,
+      height: 260,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  </script>
+</body>
+</html>
