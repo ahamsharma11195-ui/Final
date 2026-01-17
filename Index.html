@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dark Premium Cards - Login/Signup</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #000000, #0a0015, #1a0033); color: #e0e0ff; margin: 0; padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .container { background: rgba(10, 10, 20, 0.8); backdrop-filter: blur(15px); border: 1px solid #222244; border-radius: 20px; padding: 40px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 0 40px rgba(255, 69, 0, 0.4); }
+    h1 { color: #00ffff; text-shadow: 0 0 15px #00ffff; margin-bottom: 25px; }
+    input { width: 100%; padding: 15px; margin: 12px 0; border-radius: 10px; border: 1px solid #444488; background: rgba(20,20,40,0.6); color: #fff; font-size: 1.1em; }
+    button { background: linear-gradient(45deg, #ff4500, #ff8c00); color: white; border: none; padding: 15px; width: 100%; border-radius: 50px; font-size: 1.2em; cursor: pointer; margin: 15px 0; box-shadow: 0 0 20px rgba(255,69,0,0.5); transition: all 0.3s; }
+    button:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255,69,0,0.8); }
+    .toggle { color: #00ff9d; cursor: pointer; margin-top: 10px; font-size: 1em; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="container" id="loginForm">
+    <h1>Dark Premium Cards</h1>
+    <p>Login to unlock premium cards 🔥</p>
+    <input type="text" id="loginUser" placeholder="Username" />
+    <input type="password" id="loginPass" placeholder="Password" />
+    <button onclick="login()">Login</button>
+    <p class="toggle" onclick="toggleForm()">New? Sign Up</p>
+  </div>
+
+  <div class="container hidden" id="signupForm">
+    <h1>Dark Premium Cards</h1>
+    <p>Create your account</p>
+    <input type="text" id="signupUser" placeholder="New Username" />
+    <input type="password" id="signupPass" placeholder="New Password" />
+    <button onclick="signup()">Sign Up</button>
+    <p class="toggle" onclick="toggleForm()">Already have account? Login</p>
+  </div>
+
+  <script>
+    function toggleForm() {
+      document.getElementById('loginForm').classList.toggle('hidden');
+      document.getElementById('signupForm').classList.toggle('hidden');
+    }
+
+    function signup() {
+      const user = document.getElementById('signupUser').value.trim().toLowerCase();
+      const pass = document.getElementById('signupPass').value.trim();
+      if (user && pass.length >= 4) {
+        localStorage.setItem('user_' + user, pass);
+        alert('Sign Up successful! Now login.');
+        toggleForm();
+      } else {
+        alert('Enter username and password (at least 4 characters)!');
+      }
+    }
+
+    function login() {
+      const user = document.getElementById('loginUser').value.trim().toLowerCase();
+      const pass = document.getElementById('loginPass').value.trim();
+      const saved = localStorage.getItem('user_' + user);
+      if (saved && saved === pass) {
+        localStorage.setItem('loggedInUser', user);
+        window.location.href = 'home.html';
+      } else {
+        alert('Wrong username/password! Try Sign Up.');
+      }
+    }
+
+    if (localStorage.getItem('loggedInUser')) {
+      window.location.href = 'home.html';
+    }
+  </script>
+</body>
+      </html>
