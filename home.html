@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dark Premium Cards</title>
+  <style>
+    body { background: linear-gradient(135deg, #000000, #0a0015, #1a0033); color: #e0e0ff; margin: 0; padding: 20px; min-height: 100vh; font-family: 'Segoe UI', sans-serif; }
+    h1 { text-align: center; color: #00ffff; text-shadow: 0 0 20px #00ffff; margin: 30px 0 50px; }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 40px; }
+    .card { background: #050505; border: 1px solid #222244; border-radius: 20px; padding: 15px; box-shadow: 0 0 50px rgba(255, 69, 0, 0.5); overflow: hidden; position: relative; }
+    .card img { width: 100%; border-radius: 12px; display: block; margin: 0; box-shadow: 0 0 25px rgba(255,140,0,0.4); }
+    .card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(255,140,0,0.15), transparent 70%); animation: pulse 6s infinite; pointer-events: none; }
+    @keyframes pulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+    .info-top { position: absolute; top: 20px; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 20px; z-index: 2; }
+    .price { color: #00ffff; font-size: 1.5em; font-weight: bold; text-shadow: 0 0 10px #00ffff; }
+    .balance { color: #00ff9d; font-size: 1.5em; font-weight: bold; text-shadow: 0 0 10px #00ff9d; }
+    .btn { background: linear-gradient(45deg, #ff4500, #ff8c00); color: white; border: none; padding: 16px 50px; border-radius: 50px; font-size: 1.4em; cursor: pointer; display: block; width: fit-content; margin: 20px auto 0; box-shadow: 0 0 30px rgba(255,69,0,0.7); transition: all 0.3s; }
+    .btn:hover { transform: scale(1.1); box-shadow: 0 0 50px rgba(255,69,0,1); }
+    .logout { position: fixed; top: 20px; right: 20px; background: #ff4500; padding: 12px 24px; border-radius: 50px; color: white; text-decoration: none; font-weight: bold; box-shadow: 0 0 20px #ff4500; z-index: 10; }
+  </style>
+</head>
+<body>
+  <a href="#" class="logout" onclick="logout()">Logout</a>
+  <h1>Dark Premium Cards</h1>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="info-top">
+        <span class="price">PRICE ₹50</span>
+        <span class="balance">BALANCE ₹420</span>
+      </div>
+      <img src="https://entitled-apricot-bppw8lubam.edgeone.app/360_F_574431210_icdpLDlDxAfsNacnV56vIWb4pCRnaNBA.jpg" alt="Premium Card">
+      <button class="btn" onclick="goToPayment(50, 'Card 1')">Buy Now</button>
+    </div>
+
+    <div class="card">
+      <div class="info-top">
+        <span class="price">PRICE ₹100</span>
+        <span class="balance">BALANCE ₹882</span>
+      </div>
+      <img src="https://entitled-apricot-bppw8lubam.edgeone.app/360_F_574431210_icdpLDlDxAfsNacnV56vIWb4pCRnaNBA.jpg" alt="Premium Card">
+      <button class="btn" onclick="goToPayment(100, 'Card 2')">Buy Now</button>
+    </div>
+
+    <div class="card">
+      <div class="info-top">
+        <span class="price">PRICE ₹150</span>
+        <span class="balance">BALANCE ₹1,389</span>
+      </div>
+      <img src="https://entitled-apricot-bppw8lubam.edgeone.app/360_F_574431210_icdpLDlDxAfsNacnV56vIWb4pCRnaNBA.jpg" alt="Premium Card">
+      <button class="btn" onclick="goToPayment(150, 'Card 3')">Buy Now</button>
+    </div>
+
+    <div class="card">
+      <div class="info-top">
+        <span class="price">PRICE ₹500</span>
+        <span class="balance">BALANCE ₹4,500</span>
+      </div>
+      <img src="https://entitled-apricot-bppw8lubam.edgeone.app/360_F_574431210_icdpLDlDxAfsNacnV56vIWb4pCRnaNBA.jpg" alt="Premium Card">
+      <button class="btn" onclick="goToPayment(500, 'Card 4')">Buy Now</button>
+    </div>
+
+    <div class="card">
+      <div class="info-top">
+        <span class="price">PRICE ₹1,500</span>
+        <span class="balance">BALANCE ₹13,500</span>
+      </div>
+      <img src="https://entitled-apricot-bppw8lubam.edgeone.app/360_F_574431210_icdpLDlDxAfsNacnV56vIWb4pCRnaNBA.jpg" alt="Premium Card">
+      <button class="btn" onclick="goToPayment(1500, 'Card 5')">Buy Now</button>
+    </div>
+
+    <div class="card">
+      <div class="info-top">
+        <span class="price">PRICE ₹5,000</span>
+        <span class="balance">BALANCE ₹45,000</span>
+      </div>
+      <img src="https://entitled-apricot-bppw8lubam.edgeone.app/360_F_574431210_icdpLDlDxAfsNacnV56vIWb4pCRnaNBA.jpg" alt="Premium Card">
+      <button class="btn" onclick="goToPayment(5000, 'Card 6')">Buy Now</button>
+    </div>
+  </div>
+
+  <script>
+    if (!localStorage.getItem('loggedInUser')) window.location.href = 'index.html';
+
+    function logout() {
+      localStorage.removeItem('loggedInUser');
+      window.location.href = 'index.html';
+    }
+
+    function goToPayment(amount, cardName) {
+      window.location.href = `payment.html?amount=\( {amount}&name= \){encodeURIComponent(cardName)}`;
+    }
+  </script>
+</body>
+        </html>
